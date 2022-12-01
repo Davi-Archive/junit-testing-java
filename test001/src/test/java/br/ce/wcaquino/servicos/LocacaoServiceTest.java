@@ -16,6 +16,8 @@ import org.junit.rules.ExpectedException;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
+import br.ce.wcaquino.exceptions.FilmeSemEstoqueException;
+import br.ce.wcaquino.exceptions.LocadoraException;
 import br.ce.wcaquino.utils.DataUtils;
 
 public class LocacaoServiceTest {
@@ -28,7 +30,6 @@ public class LocacaoServiceTest {
 
 	@Test
 	public void testeLocacao() throws Exception {
-		// cenario
 		LocacaoService service = new LocacaoService();
 		Usuario usuario = new Usuario("usuario 1");
 		Filme filme = new Filme("Filme 1", 2, 5.0);
@@ -46,8 +47,8 @@ public class LocacaoServiceTest {
 
 	}
 
-	@Test(expected = Exception.class)
-	public void testLocacao_filmeSemEstoque() throws Exception {
+	@Test(expected = FilmeSemEstoqueException.class)
+	public void testLocacao_filmeSemEstoque_1() throws Exception {
 
 		// cenario
 		LocacaoService service = new LocacaoService();
@@ -85,12 +86,45 @@ public class LocacaoServiceTest {
 		Usuario usuario = new Usuario("usuario 1");
 		Filme filme = new Filme("Filme 1", 0, 5.0);
 
-		
 		exception.expect(Exception.class);
 		exception.expectMessage("Filme sem estoque");
-		
+
 		// acao
 		service.alugarFilme(usuario, filme);
 	}
 
+	@Test
+	public void testLocacao_UsuarioVazio() throws FilmeSemEstoqueException {
+		// cenario
+
+		LocacaoService service = new LocacaoService();
+		Filme filme = new Filme("Filme 2", 1, 4.0);
+
+		// acao
+		try {
+			service.alugarFilme(null, filme);
+			Assert.fail();
+		} catch (LocadoraException e) {
+			assertThat(e.getMessage(), is("Usuario vazio"));
+		}
+		
+		System.out.println("Forma Robusta");
+	}
+
+	
+	@Test
+	public void testLocacao_FilmeVazio() throws FilmeSemEstoqueException, LocadoraException {
+		//cenario
+		LocacaoService service = new LocacaoService();
+		Usuario usuario = new Usuario("Usuario 1");
+		
+		
+		exception.expect(LocadoraException.class);
+		exception.expectMessage("Filme vazio");
+		//acao
+		service.alugarFilme(usuario, null);
+		
+		System.out.println("Forma nova");
+		
+	}
 }
