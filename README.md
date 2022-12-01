@@ -20,8 +20,7 @@ This project consists of many diferent examples and use cases of JUnit testing, 
 
 # How to run the project
 
-## Back end
-Pré-requisitos: Java 17
+Pre requisites: Java 17
 
 ```bash
 # clone the respository
@@ -32,7 +31,7 @@ git clone https://github.com/d1av/junit-testing-java.git
 # run the terminal on folder and paste
 ./mvnw spring-boot:run
 ```
-# Autor
+# Author
 
 Davi Alves de Oliveira
 
