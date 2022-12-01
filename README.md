@@ -10,7 +10,7 @@ This project consists of many diferent examples and use cases of JUnit testing, 
 
 ## Layout
 
-![sketch](https://user-images.githubusercontent.com/107776531/205130028-c3a84c90-3f82-4115-b058-29da98b3bec2.png)
+![unit-test-diagram](https://user-images.githubusercontent.com/107776531/205130910-a3c50b6c-ab86-4a9b-ac1b-2f27f71e81c2.png)
 
 ## Used technologies
 
