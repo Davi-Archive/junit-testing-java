@@ -41,13 +41,13 @@ public class LocacaoServiceTest {
 
 	@BeforeClass
 	public static void setupClass() {
-		System.out.println("b4 class");
+		//System.out.println("b4 class");
 
 	}
 
 	@AfterClass
 	public static void afterClass() {
-		System.out.println("After class");
+		//System.out.println("After class");
 
 	}
 
@@ -56,8 +56,8 @@ public class LocacaoServiceTest {
 		service = new LocacaoService();
 			
 		Filme f1 = new Filme("Senhor dos Aneis", 2, 20.0);
-		Filme f2 = new Filme("Harry Potter", 6, 20.0);
-		Filme f3 = new Filme("Naruto", 4, 10.0);
+		Filme f2 = new Filme("Harry Potter", 1, 20.0);
+		Filme f3 = new Filme("Naruto", 2, 10.0);
 
 		filmes.addAll(Arrays.asList(f1, f2, f3));
 		
@@ -153,7 +153,6 @@ public class LocacaoServiceTest {
 			assertThat(e.getMessage(), is("Usuario vazio"));
 		}
 
-		System.out.println("Forma Robusta");
 	}
 
 	@Test
@@ -167,7 +166,6 @@ public class LocacaoServiceTest {
 		// acao
 		service.alugarFilme(usuario, null);
 
-		System.out.println("Forma nova");
 
 	}
 }
