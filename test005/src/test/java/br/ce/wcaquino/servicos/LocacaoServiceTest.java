@@ -1,5 +1,7 @@
 package br.ce.wcaquino.servicos;
 
+import static br.ce.wcaquino.builders.FilmeBuilder.umFilme;
+import static br.ce.wcaquino.builders.FilmeBuilder.umFilmeSemEstoque;
 import static br.ce.wcaquino.utils.DataUtils.isMesmaData;
 import static br.ce.wcaquino.utils.DataUtils.obterDataComDiferencaDias;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -19,6 +21,8 @@ import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
+import br.ce.wcaquino.builders.FilmeBuilder;
+import br.ce.wcaquino.builders.UsuarioBuilder;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
@@ -48,8 +52,10 @@ public class LocacaoServiceTest {
 		Assume.assumeFalse(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
 
 		// cenario
-		Usuario usuario = new Usuario("Usuario 1");
-		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 1, 5.0));
+		Usuario usuario = UsuarioBuilder.umUsuario().agora();
+//		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 1, 5.0));
+//		List<Filme> filmes = Arrays.asList(FilmeBuilder.umFilme().comValor(5.0).agora());
+		List<Filme> filmes = Arrays.asList(umFilmeSemEstoque().agora());
 
 		// acao
 		Locacao locacao = service.alugarFilme(usuario, filmes);
@@ -64,7 +70,7 @@ public class LocacaoServiceTest {
 	public void naoDeveAlugarFilmeSemEstoque() throws Exception {
 		// cenario
 		Usuario usuario = new Usuario("Usuario 1");
-		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 0, 4.0));
+		List<Filme> filmes = Arrays.asList(umFilme().semEstoque().agora());
 
 		// acao
 		service.alugarFilme(usuario, filmes);
@@ -112,6 +118,6 @@ public class LocacaoServiceTest {
 		Assert.assertTrue(ehSegunda);
 		assertThat(retorno.getDataRetorno(), new DiaSemanaMatcher(Calendar.MONDAY));
 		assertThat(retorno.getDataRetorno(), MatchersProprios.caiNumaSegunda());
-	
+
 	}
 }
